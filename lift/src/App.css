@@ -1,0 +1,142 @@
+.App {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.form{
+  background-color: rgb(223, 238, 252);
+  text-align: left;
+  font-size: 18px;
+  font-family: 'crimson'; 
+  width: 80%;
+  margin: 2% 10% 0 10%;
+  
+}
+
+.form h1{
+ padding-bottom: 20px;
+}
+
+form{
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-row-gap: 0px;
+  padding: 1% 10%;
+  font-family:'';
+  font-size:20px;
+  
+}
+
+label {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px; 
+  grid-column: 1;
+  font-weight: bold;
+  
+}
+
+input {
+  grid-column: 2;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px; 
+  margin-left: 0px;
+  height: 30px;
+  border: 1.5px solid #282c34;
+  border-radius: 5px;
+  width: 80%;
+  padding-left: 10px;
+  font-size:16px;
+}
+
+#calculate-diameter{
+  height: 35px;
+  width: 180px;
+  margin-top: 20px;
+  background-color:rgb(75, 137, 229);
+  font-size: 16px;
+  border: 1.5px solid #000309;
+  color:white;
+}
+
+#calculate-diameter:hover{
+ background-color: rgb(13, 62, 136);
+ font-size: 17px;
+ color:white;
+}
+
+.underroot {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.underroot::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: black; 
+  bottom: 100%;
+  right:-10px;
+}
+
+.calculations{
+  padding: 0% 10%;
+  font-family:'';
+  text-decoration: none;
+  list-style-type: none;
+  padding-bottom: 2px;
+  margin-bottom: 40px;
+}
+
+.calculations ul li{
+  list-style-type: none;
+  padding-bottom:10px;
+}
+
+#result{
+  padding: 2% 10%;
+  font-size:22px;
+  color: red;
+  font-family: '';
+  font-weight: bold;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

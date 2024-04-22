@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'crimson'; /* Replace 'YourFontName' with the desired font family name */
+    src: url('../../assets/Crimson_Text/CrimsonText-Regular.ttf') format('truetype'); /* Adjust the path to your font file */
+   
+  }
+  
+.Header{
+    width: 100%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+
+}
+
+.heading-container{
+    margin: 0;
+    width: 100%;
+    height: auto;
+    min-height: 100PX;
+    background-color: rgb(75, 137, 229);
+    text-align: center;
+    
+   
+}
+#heading{
+padding-top: 20px;
+ color:rgb(251, 245, 238);
+ font-family:'crimson';
+ font-size: 50px;
+}
+
