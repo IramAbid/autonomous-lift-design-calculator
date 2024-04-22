@@ -86,7 +86,7 @@ function App() {
             <h2>Step-wise Calculations</h2>
             <h3>Equivalent Torque:</h3>
             <ul>
-              <li><b>Step 1 : </b>(0.25 * {originalTorque} * {weightLifted})<sup>2</sup> = {stepwiseCalculations.torque.step1.toFixed(2)}</li>
+              <li><b>Step 1 : </b>(0.25 * {eccentricity} * {weightLifted})<sup>2</sup> = {stepwiseCalculations.torque.step1.toFixed(2)}</li>
               <li><b>Step 2 : </b>(2 * {originalTorque})<sup>2</sup> = {stepwiseCalculations.torque.step2.toFixed(2)}</li>
               <li><b>Result : </b><span className="underroot">√ (step1 + step2)</span> = {stepwiseCalculations.torque.result.toFixed(2)} N-mm</li>
             </ul>
