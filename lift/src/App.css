@@ -27,9 +27,12 @@ form{
   display: grid;
   grid-template-columns: max-content 1fr;
   grid-row-gap: 0px;
-  padding: 1% 10%;
+  padding: 1% 12%;
   font-family:'';
   font-size:20px;
+  gap:0 80px;
+  align-items: center;
+  justify-content: center;
   
 }
 
@@ -52,7 +55,7 @@ input {
   border: 1.5px solid #282c34;
   border-radius: 5px;
   width: 80%;
-  padding-left: 10px;
+  padding-left: 15px;
   font-size:16px;
 }
 
@@ -104,11 +107,19 @@ input {
 }
 
 #result{
-  padding: 2% 10%;
-  font-size:22px;
+ 
+  font-size:20px;
   color: red;
   font-family: '';
   font-weight: bold;
+  padding: 0;
+  margin:0;
+}
+
+p{
+ 
+    line-height: 2; /* 1.5 times the font size */
+  
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -132,11 +143,10 @@ input {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.intro-container{
+  font-family: 'crimson'; 
+  font-size: 20px;
+  text-align: justify;
+  padding: 40px 120px 0px 120px;
 }
+
