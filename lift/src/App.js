@@ -3,7 +3,7 @@ import './App.css';
 import Header from './components/header/navbar.jsx';
 
 function App() {
-  const [diameter, setDiameter] = useState(null);
+  
   const [Weightofthecar, setWeightofthecar] = useState(null);
   const [Lengthofthecar, setLengthofthecar] = useState(null);
   const [widthofthecar, setwidthofthecar ] = useState(null);
@@ -12,6 +12,12 @@ function App() {
   const [WheelBase, setWheelBase] = useState(null);
   const [TensileStrength, setTensileStrength] = useState(null);
   const [ShearStrength, setShearStrength] = useState(null);
+
+  //props and states for calculation of components;
+
+  const [diameter, setDiameter] = useState(null);
+  const [MotorSpeed, setMotorSpeed] = useState(null);
+  const [finalMotorPower, setFinalMotorPower] = useState(null);
 
 
   const [stepwiseCalculations, setStepwiseCalculations] = useState(null);
@@ -36,22 +42,53 @@ function App() {
       setTensileStrength(TensileStrength);
       const ShearStrength = parseFloat(event.target.elements.ShearStrength.value);
       setShearStrength(ShearStrength);
+
+
       // Calculate eccentricity
-      const eccentricity = widthofthecar / 2 + 600;
+      const eccentricity = widthofthecar / 2 + 800;
   
       // Calculate equivalent torque
+      const originalTorque = Weightofthecar * 11.5;
       const torqueStep1 = Math.pow(0.25 * Weightofthecar * eccentricity, 2);
-      const torqueStep2 = Math.pow(2 * Weightofthecar * 50, 2);
+      const torqueStep2 = Math.pow(2 * originalTorque, 2);
       const tauEq = Math.sqrt(torqueStep1 + torqueStep2);
-  
+     
       // Calculate diameter
-      const diameterStep1 = 16 * tauEq;
-      const diameterStep2 = Math.PI * ShearStrength;
-      const calculatedDiameter = Math.pow(diameterStep1 / diameterStep2, 1 / 3);
-  
-      // Update state with calculated diameter
+      const pi= Math.PI;
+      const diameterStep1 = Math.PI * ShearStrength;
+      const diameterStep2 = 16 * tauEq;
+
+      const calculatedDiameter = Math.pow((diameterStep2 / diameterStep1), 1 / 3);
       setDiameter(calculatedDiameter);
+
+      //calculate motor speed
+      const N=200;
+      const powerMotor = 4*originalTorque*pi*N /(60*1000000);
+      const efficiency = 0.85;
+      const finalMotorPower = powerMotor/efficiency;
+      const f=50;
+      const p=6;
+      const syncSpeed = 120*f/p;      
+      const s = 0.04; //4% slip
+      const MotorSpeed = syncSpeed*(1-s);
+      setFinalMotorPower(finalMotorPower);
+      setMotorSpeed(MotorSpeed);
   
+      //calculation of belt 
+      const reductionRatio = MotorSpeed/N;
+      const D1=125;
+      const W1= 2*pi* MotorSpeed/60;
+      const D2 = D1 * reductionRatio;
+      const speedBelt = D1 * W1/(2*1000) ;
+      const fb=1.14; //diafactor
+      const d0=D1*fb;   // equivalent pitch 
+      const PowerTransmitted= ((0.79*Math.pow(speedBelt,-0.09)) - (50.8/d0) - (1.32* Math.pow(10,-4)*Math.pow(speedBelt,2)))*speedBelt; //by single belt
+      const fa=1,fc=1,fd=0.85;
+      const NumBelt = (finalMotorPower* fa)/(fc * fd *PowerTransmitted);
+
+      //calculation of pulleys 
+     
+
       // Update state with stepwise calculations
       setStepwiseCalculations({
         torque: {
@@ -63,7 +100,22 @@ function App() {
           step1: diameterStep1,
           step2: diameterStep2,
           result: calculatedDiameter
+        },
+        Motor: {
+          step1:powerMotor, 
+          step2:finalMotorPower,
+          step3:syncSpeed,
+          step4:MotorSpeed},
+        belt:{
+          step1:D1,
+          step2:D2,
+          step3:speedBelt,
+          step4:PowerTransmitted,
+          step5:NumBelt,
+          step6:reductionRatio,
+          step7:d0
         }
+      
       });
     } catch (error) {
       console.error("Error:", error);
@@ -122,19 +174,38 @@ Please provide the following specifications of the car for which you want to des
             <h2>1. Design of Screw</h2>
             <h3>Equivalent Torque:</h3>
             <ul>
+              <li>Torque = <span className="underroot">√(0.25 x weight of the car x eccentricity)<sup>2</sup>+ (2 x weight of the car x r )<sup>2</sup></span></li>
               <li><b>Step 1 : </b>(0.25 * {(Weightofthecar/2)+600} * {Weightofthecar})<sup>2</sup> = {stepwiseCalculations.torque.step1.toFixed(2)}</li>
               <li><b>Step 2 : </b>(2 * {Math.pow(Math.pow(0.25*Weightofthecar*(widthofthecar/2+600),2) +Math.pow(2*Weightofthecar*50,2),0.5).toFixed(2)})<sup>2</sup> = {stepwiseCalculations.torque.step2.toFixed(2)}</li>
               <li><b>Result : </b><span className="underroot">√ (step1 + step2)</span> = {stepwiseCalculations.torque.result.toFixed(2)} N-mm</li>
             </ul>
             <h3>Diameter:</h3>
             <ul>
-              <li><b>Step 1 : </b> 16 * Equivalent Torque = {stepwiseCalculations.diameter.step1.toFixed(2)}</li>
-              <li><b>Step 2 : </b> pi * {ShearStrength} = {stepwiseCalculations.diameter.step2.toFixed(2)}</li>
+              <li>Diameter = (16 x Torque / pi x 78)<sup>1/3</sup></li>
+              <li><b>Step 1 : </b> 16 x Torque = {stepwiseCalculations.diameter.step1.toFixed(2)}</li>
+              <li><b>Step 2 : </b> pi x {ShearStrength} = {stepwiseCalculations.diameter.step2.toFixed(2)}</li>
               <li><b>Result : </b>(step 1/step 2)<sup>(1/3)</sup> = {stepwiseCalculations.diameter.result.toFixed(2)} mm</li>
               <li>{diameter && <p id="result">Final diameter of the screw : {diameter.toFixed(2)} mm</p>}</li>
               <li><b>Note:</b> Other specifications of the screw should be taken from PSG design data book.</li>
             </ul>
-          <h2>2.Drive Chain</h2>
+            <h2>2.Motor Selection</h2>
+            <ul>
+              <li>Motor Power = 4 x Torque x Pi x N / 60 = 4 x {stepwiseCalculations.torque.result.toFixed(2)} x Pi x 60 / 60  = {stepwiseCalculations.Motor.step1.toFixed(2)} kW</li>
+              <li>Final Motor Power ( 85% efficiency) = Motor Power / 0.85 = {stepwiseCalculations.Motor.step2.toFixed(2)} kW</li>
+              <li>Synchronous Speed = 120 x f / p = 120 x 50 / 6 =  {stepwiseCalculations.Motor.step3.toFixed(2)} rpm </li>
+              <li>Motor Speed = Synchronous Speed x (1- slip factor) = {stepwiseCalculations.Motor.step3.toFixed(2)} x (1 - 0.04) = {stepwiseCalculations.Motor.step4.toFixed(2)} rpm </li>
+              <li><b>Result :  choose a motor which have Motor Power {stepwiseCalculations.Motor.step2.toFixed(2)} kW  & Motor Speed {stepwiseCalculations.Motor.step4.toFixed(2)} rpm</b></li>
+            </ul>
+            <h2>3.Design of Belt</h2>
+            <ul>
+              <li>Reduction Ratio = Motor Speed / Screw rpm =  {stepwiseCalculations.belt.step6.toFixed(2)}</li>
+              <li>Bigger Pulley Diameter (D2) = Reduction Ratio * D1 = {stepwiseCalculations.belt.step6.toFixed(2)}* {stepwiseCalculations.belt.step1.toFixed(2)} = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
+              <li>Belt Speed (S)= D1 * W1 / 2  = {stepwiseCalculations.belt.step1.toFixed(2)} x 2 x pi x 200 / 6 =  {stepwiseCalculations.belt.step3.toFixed(2)} m/s </li>
+              <li>Power Transmitted = [0.79 x S<sup>-0.09</sup> - 50.8/d0 -1.32 x 10<sup>-4</sup> S<sup>2</sup>] x S = {stepwiseCalculations.belt.step4.toFixed(2)}</li>
+              <li>Equivalent pitch (d0) = D1 x F<sub>b</sub> = {stepwiseCalculations.belt.step7.toFixed(2)}</li>
+              <li>Number of belt required = [Motor Power x F<sub>a</sub>/ (Power Transmitted x F<sub>c</sub> x F<sub>d</sub>)] = {stepwiseCalculations.belt.step5.toFixed(2)}</li>
+            </ul>
+          <h2>3.Drive Chain</h2>
           <p>Since Velocity Ratio = 1 = N<sub>1</sub>/N<sub>2</sub>
           <br/>From PSG Design Data Book-
 <br/>No. of tooth on smaller sprocket = T<sub>1</sub> = 31
