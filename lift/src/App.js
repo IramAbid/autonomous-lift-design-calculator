@@ -396,23 +396,23 @@ function App() {
               <li>b = <sup>3</sup><span className="underroot"><span className='square-root'>√ </span> (16.5 x 10<sup>5</sup> x 3) /  (2 x Shear Strength)</span> </li>
               <li>b = <sup>3</sup><span className="underroot"><span className='square-root'>√ </span> (16.5 x 10<sup>5</sup> x 3) /  (2 x Shear Strength)</span> </li>
               <li>b = <sup>3</sup><span className="underroot"><span className='square-root'>√ </span>(16.5 x 10<sup>5</sup> x 3) / (2 x {ShearStrength})</span></li>
-              <li>b = {stepwiseCalculations.arms.step1} mm</li>
-              <li>d = {2*stepwiseCalculations.arms.step2} mm</li>
+              <li>b = {stepwiseCalculations.arms.step1.toFixed(2)} mm</li>
+              <li>d = {2*stepwiseCalculations.arms.step2.toFixed(2)} mm</li>
               <li>Outer Width of the hollow bar B = b + 26 </li>
-              <li>B = {stepwiseCalculations.arms.step1 + 26} mm</li>
+              <li>B = {stepwiseCalculations.arms.step1.toFixed(2) + 26} mm</li>
               <li>Outer Depth of the hollow bar D = d + 26 </li>
-              <li>D = {stepwiseCalculations.arms.step2 + 26} mm</li>
+              <li>D = {stepwiseCalculations.arms.step2.toFixed(2) + 26} mm</li>
               <li>d<sub>i</sub> = <sup>3</sup><span className="underroot"><span className='square-root'>√ </span> (2 x 5500 x 1150 x 32) /  (pi x 4 x 3 x Shear Strength)</span></li>
               <li>d<sub>i</sub> = <sup>3</sup><span className="underroot"><span className='square-root'>√ </span> (2 x 5500 x 1150 x 32) /  (pi x 4 x 3 x {ShearStrength})</span></li>
-              <li>d<sub>i</sub> = {stepwiseCalculations.arms.step3} mm</li>
-              <li>Outer Diamter of the eye, B<sub>1</sub> = 2d<sub>i</sub> = {stepwiseCalculations.arms.step3 * 2} mm</li>
+              <li>d<sub>i</sub> = {stepwiseCalculations.arms.step3.toFixed(2)} mm</li>
+              <li>Outer Diamter of the eye, B<sub>1</sub> = 2d<sub>i</sub> = {stepwiseCalculations.arms.step3.toFixed(2) * 2} mm</li>
               <li><span className='result'>Result: </span></li>
-              <li><span className='result'>Width of the solid bar, b = {stepwiseCalculations.arms.step1} mm</span></li>
-              <li><span className='result'>depth of the solid bar, d = {stepwiseCalculations.arms.step2} mm </span></li>
-              <li><span className='result'>Outer Width of the hollow bar B = {stepwiseCalculations.arms.step1 + 26} mm </span></li>
-              <li><span className='result'>Outer Depth of the hollow bar D = {stepwiseCalculations.arms.step2 + 26} mm </span></li>
-              <li><span className='result'>Diameter of the pin, d<sub>i</sub> = {stepwiseCalculations.arms.step3} mm</span> </li>
-              <li><span className='result'>Outer Diamter of the eye, B<sub>1</sub> = {stepwiseCalculations.arms.step3 * 2} mm</span></li>
+              <li><span className='result'>Width of the solid bar, b = {stepwiseCalculations.arms.step1.toFixed(2)} mm</span></li>
+              <li><span className='result'>depth of the solid bar, d = {stepwiseCalculations.arms.step2.toFixed(2)} mm </span></li>
+              <li><span className='result'>Outer Width of the hollow bar B = {stepwiseCalculations.arms.step1.toFixed(2) + 26} mm </span></li>
+              <li><span className='result'>Outer Depth of the hollow bar D = {stepwiseCalculations.arms.step2.toFixed(2) + 26} mm </span></li>
+              <li><span className='result'>Diameter of the pin, d<sub>i</sub> = {stepwiseCalculations.arms.step3.toFixed(2)} mm</span> </li>
+              <li><span className='result'>Outer Diamter of the eye, B<sub>1</sub> = {stepwiseCalculations.arms.step3.toFixed(2) * 2} mm</span></li>
             </ul>
             <div className='img-container'><img src={telescopicArms} alt="TelescopicArms"/>
             <p>Figure 3: Telescopic Arms</p></div>
