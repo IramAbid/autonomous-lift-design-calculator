@@ -237,8 +237,8 @@ function App() {
               <li>Using maximum shear stress theory</li>
               <li>Equivalent Torque = <span className="underroot"><span className='square-root'>√ </span>(0.25 x Weight Of The Car x Eccentricity)<sup>2</sup>+ (2 x Original Torque )<sup>2</sup></span></li>
               <li>Eccentricity = Width Of The Car / 2 + 600 = {widthofthecar}/2+ 600 = {(Weightofthecar/2)+600}</li>
-              <li>Original Torque = Weight Of The Car x r = {Weightofthecar} x 50 = {stepwiseCalculations.torque.step3} N-mm</li>
-              <li>Equivalent Torque = <span className='underroot'><span className='square-root'>√ </span>(0.25 * {Weightofthecar} * {(Weightofthecar/2)+600})<sup>2</sup> + (2 x  {stepwiseCalculations.torque.step3})<sup>2</sup></span> </li>
+              <li>Original Torque = Weight Of The Car x r = {Weightofthecar} x 50 = {stepwiseCalculations.torque.step3.toFixed(2)} N-mm</li>
+              <li>Equivalent Torque = <span className='underroot'><span className='square-root'>√ </span>(0.25 * {Weightofthecar} * {(Weightofthecar/2)+600})<sup>2</sup> + (2 x  {stepwiseCalculations.torque.step3.toFixed(2)})<sup>2</sup></span> </li>
               <li><span className='result'>Result : Equivalent Torque = {stepwiseCalculations.torque.result.toFixed(2)} N-mm</span></li>
               
             </ul>
@@ -295,12 +295,12 @@ function App() {
             <ul>
               <li><h3>A. Smaller Pulley Design</h3></li>
               <li>We are going to design a V grooved pulley, so we have to follow some standard dimensions, (from PSG Design Data book)</li>
-              <li>Pulley Diameter (D<sub>1</sub>) = {stepwiseCalculations.pulley.step1} mm</li>
-              <li>Pulley Pitch Diameter (Dp<sub>1</sub>) = {stepwiseCalculations.pulley.step8} mm</li>
-              <li> Pulley Pitch Diameter (Dp<sub>2</sub>) = {stepwiseCalculations.pulley.step9} mm </li>
-              <li>Length of the Key (l<sub>k</sub>) = {stepwiseCalculations.pulley.step5} mm </li>
+              <li>Pulley Diameter (D<sub>1</sub>) = {stepwiseCalculations.pulley.step1.toFixed(2)} mm</li>
+              <li>Pulley Pitch Diameter (Dp<sub>1</sub>) = {stepwiseCalculations.pulley.step8.toFixed(2)} mm</li>
+              <li> Pulley Pitch Diameter (Dp<sub>2</sub>) = {stepwiseCalculations.pulley.step9.toFixed(2)} mm </li>
+              <li>Length of the Key (l<sub>k</sub>) = {stepwiseCalculations.pulley.step5.toFixed(2)} mm </li>
               <li><b>1. Rim Design</b></li>
-              <li>Depth of Rim (t<sub>s</sub>) = 0.35 x <span className="underroot"><span className='square-root'>√ </span> Dp<sub>1</sub> + 5</span> = 0.35 x <span className="underroot"><span className='square-root'>√ </span> {stepwiseCalculations.pulley.step8} + 5</span></li>
+              <li>Depth of Rim (t<sub>s</sub>) = 0.35 x <span className="underroot"><span className='square-root'>√ </span> Dp<sub>1</sub> + 5</span> = 0.35 x <span className="underroot"><span className='square-root'>√ </span> {stepwiseCalculations.pulley.step8.toFixed(2)} + 5</span></li>
               <li><span className='result'>t<sub>s</sub> = {stepwiseCalculations.pulley.step3.toFixed(2)} mm </span></li>
  
               <li><b>2. Length of the Hub</b></li>
@@ -311,7 +311,7 @@ function App() {
               <li><b>3. Rib Design</b></li>
               <li>Thickness of Rib (t<sub>1</sub>) = original Torque / 344323 </li>
               <li>t<sub>1</sub> = {stepwiseCalculations.torque.step3.toFixed(2)} / 344323 </li>
-              <li><span className='result'>t<sub>1</sub> = {stepwiseCalculations.pulley.step4} mm</span></li>
+              <li><span className='result'>t<sub>1</sub> = {stepwiseCalculations.pulley.step4.toFixed(2)} mm</span></li>
 
               <li><h3>B. Bigger Pulley Design</h3></li>
               <li><b>1. Rim Design</b></li>
@@ -409,8 +409,8 @@ function App() {
               <li><span className='result'>Result: </span></li>
               <li><span className='result'>Width of the solid bar, b = {stepwiseCalculations.arms.step1.toFixed(2)} mm</span></li>
               <li><span className='result'>depth of the solid bar, d = {stepwiseCalculations.arms.step2.toFixed(2)} mm </span></li>
-              <li><span className='result'>Outer Width of the hollow bar B = {stepwiseCalculations.arms.step1.toFixed(2) + 26} mm </span></li>
-              <li><span className='result'>Outer Depth of the hollow bar D = {stepwiseCalculations.arms.step2.toFixed(2) + 26} mm </span></li>
+              <li><span className='result'>Outer Width of the hollow bar B = {(stepwiseCalculations.arms.step1 + 26).toFixed(2)} mm </span></li>
+              <li><span className='result'>Outer Depth of the hollow bar D = {(stepwiseCalculations.arms.step2 + 26).toFixed(2)} mm </span></li>
               <li><span className='result'>Diameter of the pin, d<sub>i</sub> = {stepwiseCalculations.arms.step3.toFixed(2)} mm</span> </li>
               <li><span className='result'>Outer Diamter of the eye, B<sub>1</sub> = {stepwiseCalculations.arms.step3.toFixed(2) * 2} mm</span></li>
             </ul>
