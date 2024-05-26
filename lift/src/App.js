@@ -3,6 +3,7 @@ import screw from './assets/screw.png';
 import machineLayout from './assets/machineLayout.png';
 import telescopicArms from './assets/telescopicArms.png';
 import rollers from './assets/rollers.png';
+import copyright from './assets/copyright.png';
 import './App.css';
 import Header from './components/header/navbar.jsx';
 
@@ -238,7 +239,7 @@ function App() {
               <li>Eccentricity = Width Of The Car / 2 + 600 = {widthofthecar}/2+ 600 = {(Weightofthecar/2)+600}</li>
               <li>Original Torque = Weight Of The Car x r = {Weightofthecar} x 50 = {stepwiseCalculations.torque.step3} N-mm</li>
               <li>Equivalent Torque = <span className='underroot'><span className='square-root'>√ </span>(0.25 * {Weightofthecar} * {(Weightofthecar/2)+600})<sup>2</sup> + (2 x  {stepwiseCalculations.torque.step3})<sup>2</sup></span> </li>
-              <li><span className='result'>Result : Equivalent Torque= {stepwiseCalculations.torque.result.toFixed(2)} N-mm</span></li>
+              <li><span className='result'>Result : Equivalent Torque = {stepwiseCalculations.torque.result.toFixed(2)} N-mm</span></li>
               
             </ul>
             <h3>B. Diameter:</h3>
@@ -277,10 +278,10 @@ function App() {
               <li>D<sub>2</sub> = Reduction Ratio * D<sub>1</sub> = {stepwiseCalculations.belt.step6.toFixed(2)}* {stepwiseCalculations.belt.step1.toFixed(2)} = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
               <li>Diameter of the smaller pulley (D<sub>1</sub>) = 125 mm</li>
               <li>Diameter of the bigger pulley (D<sub>2</sub>) = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
-              <li>Now,<br/>Power Transmitted Capacity of a single Belt of (B) cross-section</li>
+              <li>Now, Power Transmitted Capacity of a single Belt of (B) cross-section is given by</li>
               <li>Power Transmitted = [0.79 x S<sup>-0.09</sup> - 50.8/d<sub>o</sub> -1.32 x 10<sup>-4</sup> S<sup>2</sup>] x S = {stepwiseCalculations.belt.step4.toFixed(2)} kW</li>
               <li>where </li>
-              <li>Belt Speed (S)= D<sub>1</sub> * W1 / 2  = {stepwiseCalculations.belt.step1.toFixed(2)} x 2 x pi x 200 / 6 =  {stepwiseCalculations.belt.step3.toFixed(2)} m/s </li>
+              <li>Belt Speed (S)= D<sub>1</sub> * W<sub>1</sub> / 2  = {stepwiseCalculations.belt.step1.toFixed(2)} x 2 x pi x 200 / 6 =  {stepwiseCalculations.belt.step3.toFixed(2)} m/s </li>
               <li>Equivalent pitch (d<sub>o</sub>) = D1 x F<sub>b</sub> = {stepwiseCalculations.belt.step7.toFixed(2)}</li>
               <li>Now, Number of belt required (n) = [Motor Power x F<sub>a</sub>/ (Power Transmitted x F<sub>c</sub> x F<sub>d</sub>)] </li>
               <li> n = {Math.ceil(stepwiseCalculations.belt.step5.toFixed(2))}</li>
@@ -298,22 +299,22 @@ function App() {
               <li>Pulley Pitch Diameter (Dp<sub>1</sub>) = {stepwiseCalculations.pulley.step8} mm</li>
               <li> Pulley Pitch Diameter (Dp<sub>2</sub>) = {stepwiseCalculations.pulley.step9} mm </li>
               <li>Length of the Key (l<sub>k</sub>) = {stepwiseCalculations.pulley.step5} mm </li>
-              <li>1. Rim Design</li>
+              <li><b>1. Rim Design</b></li>
               <li>Depth of Rim (t<sub>s</sub>) = 0.35 x <span className="underroot"><span className='square-root'>√ </span> Dp<sub>1</sub> + 5</span> = 0.35 x <span className="underroot"><span className='square-root'>√ </span> {stepwiseCalculations.pulley.step8} + 5</span></li>
               <li><span className='result'>t<sub>s</sub> = {stepwiseCalculations.pulley.step3.toFixed(2)} mm </span></li>
  
-              <li>2. Length of the Hub</li>
+              <li><b>2. Length of the Hub</b></li>
               <li>Length of the Hub (l<sub>h</sub>) = length of key (l<sub>k</sub>) </li>
               <li>l<sub>h</sub> = l<sub>k</sub> </li>
               <li><span className='result'>l<sub>h</sub> = {stepwiseCalculations.pulley.step2.toFixed(2)} mm </span></li>
 
-              <li>3. Rib Design</li>
+              <li><b>3. Rib Design</b></li>
               <li>Thickness of Rib (t<sub>1</sub>) = original Torque / 344323 </li>
               <li>t<sub>1</sub> = {stepwiseCalculations.torque.step3.toFixed(2)} / 344323 </li>
               <li><span className='result'>t<sub>1</sub> = {stepwiseCalculations.pulley.step4} mm</span></li>
 
               <li><h3>B. Bigger Pulley Design</h3></li>
-              <li>1. Rim Design</li>
+              <li><b>1. Rim Design</b></li>
     
               <li>Depth of Rim (t<sub>b</sub>) =  0.35 x <span className="underroot"><span className='square-root'>√ </span> Dp<sub>2</sub> + 5</span> = 0.35 x <span className="underroot"><span className='square-root'>√ </span> {stepwiseCalculations.pulley.step9} + 5</span> </li>
               <li><span className='result'>t<sub>b</sub> = {stepwiseCalculations.pulley.step7.toFixed(2)} mm</span></li>
@@ -322,7 +323,7 @@ function App() {
            <div className='cal-container'>
           <h2>5. Design of Chain</h2>
             <ul>
-              <li>Since Velocity Ratio = 1 = N<sub>1</sub>/N<sub>2</sub></li>
+              <li>Since Velocity Ratio = 1 = N<sub>1</sub> / N<sub>2</sub></li>
               <li>From PSG Design Data Book-</li>
               <li>No. of tooth on smaller sprocket = T<sub>1</sub> = 31</li>
               <li>No. of tooth on larger sprocket = T<sub>2</sub> = T1 x N<sub>1</sub>/N<sub>2</sub> = 31 x 1 = 31</li>
@@ -348,12 +349,12 @@ function App() {
               <li>Breaking load for simplex chain = 22.2 KN</li>
               <li>Now, Pitch circle diameter of sprocket D<sub>1</sub> = p.cosec(180/T) = 157.13 mm</li>
               <li>Pitch line velocity (V) = 1.643 m/s</li>
-              <li>Load on chain W = Rated Power /Pitch line velocity = 2.25/1.643 = 1.369 kN</li>
-              <li>Factor of safety f = Breaking load/Load on chain = WB/W = 22200/1369 = 16.2</li>
+              <li>Load on chain (W) = Rated Power / Pitch line velocity = 2.25/1.643 = 1.369 kN</li>
+              <li>Factor of safety (f) = Breaking load / Load on chain = W<sub>B</sub> / W = 22200/1369 = 16.2</li>
               <li>This value is more than given in table which is 7.8</li>
               <li>The minimum centre distance between sprockets must be 30 to 50 times pitch.</li>
               <li>Centre distance between sprockets is 2.5m = 2500 mm</li>
-              <li>Length of chain L= K<sub>p</sub> = 15.875 × 346 = 5492mm ~ 5.5 m</li>
+              <li>Length of chain (L) = K<sub>p</sub> = 15.875 × 346 = 5492 mm ~ 5.5 m</li>
               <li><span className='result'>Result : Final dimension of chain are</span></li>
               <li><span className='result'>Chain No. I.S. 10B single strand</span></li>
               <li><span className='result'>Pitch p = 15.875 mm</span></li>
@@ -426,27 +427,39 @@ function App() {
           </div>
         )} 
         <div className='about-container'>
-        <p>This Expert System is made as a part of the Final Year Project under the supervision
-PROF. AHMAD ALI KHAN SIR
-</p>
-        <div className='about'>
-          <div>
-             <ul>Muhaiyuddin</ul>
-             <ul>20MEB20</ul>
-             
-          </div>
-          <div>
-             <ul>M SHAHIRIYAR SHAFI </ul>
-             <ul>20MEB20</ul>
-             
-          </div>
-          <div>
-             <ul>AZFAR ALI</ul>
-             <ul>20MEB20</ul>
-          </div>
-          </div>
-
-        </div>
+        <p>This Expert System is made as a part of the final year project under the supervision of <span className='name'> Prof. Ahmed ALi Khan Sir</span> from Mechanical Engineering Department,
+             Zakir Husain College of Engineering and Technology, AMU by following project members:  </p>
+        
+             <div className='about'>
+    <div>
+        <ul>
+           
+            <li><span className='name'>MUHAIYUDDIN</span></li>
+            <li>20MEB20</li>
+            <li>B.Tech (ME)</li>
+            <li>Zakir Husain College of Engineering and Technology, AMU</li>
+        </ul>
+    </div>
+    <div>
+        <ul>
+           
+            <li><span className='name'>M SHAHIRIYAR SHAFI</span></li>
+            <li>20MEB005</li>
+            <li>B.Tech (ME)</li>
+            <li>Zakir Husain College of Engineering and Technology, AMU</li>
+        </ul>
+    </div>
+    <div>
+        <ul>      
+            <li><span className='name'>AZFAR ALI</span></li>
+            <li>20MEB177</li>
+            <li>B.Tech (ME)</li>
+            <li>Zakir Husain College of Engineering and Technology, AMU</li>
+        </ul>
+      </div>  
+      </div>
+      <p id='copy-para'><img src={copyright} className='copyright'/> All rights reserved.</p>
+      </div>
       </div>
     </div>
   );
