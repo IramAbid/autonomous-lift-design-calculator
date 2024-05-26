@@ -392,6 +392,7 @@ Please provide the following specifications of the car for which you want to des
             </ul>
             <div className='img-container'><img src={telescopicArms} alt="TelescopicArms"/>
             <p>Figure 3: Telescopic Arms</p>
+            <h2>Machine Layout of the Lift</h2>
             <img src={machineLayout} alt="machineLayout"/>
             <p>Figure 4: Machine</p></div>
  
