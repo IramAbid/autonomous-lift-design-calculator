@@ -15,18 +15,26 @@
 
 .heading-container{
     margin: 0;
+    padding: 0;
+    display: flex;
     width: 100%;
-    height: auto;
-    min-height: 100PX;
+    height: 120px;
+    min-height: 100px;
     background-color: rgb(75, 137, 229);
     text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
     
-   
+     
 }
 #heading{
 padding-top: 20px;
  color:rgb(251, 245, 238);
  font-family:'crimson';
  font-size: 50px;
+ text-align: center;
+ justify-content: center;
+ align-items: center;
 }
 

@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import screw from './assets/screw.png';
+import machineLayout from './assets/machineLayout.png';
+import telescopicArms from './assets/telescopicArms.png';
+import rollers from './assets/rollers.png';
 import './App.css';
 import Header from './components/header/navbar.jsx';
 
@@ -87,6 +91,30 @@ function App() {
       const NumBelt = (finalMotorPower* fa)/(fc * fd *PowerTransmitted);
 
       //calculation of pulleys 
+      const Dp1 =125;  // pully pitch dia
+      const lk= 32; //length of the key 
+
+      //smaller pulley
+
+      //1. rim design 
+      
+      const ts = 0.35 * Math.sqrt(Dp1 + 5); // depth of the rim (mm)
+
+      //2. length of hub 
+      const lh = lk;  //length of hub (mm)
+
+      //3. rib design 
+      const t1= originalTorque/ 344323;   // thickness of rib (mm)
+
+      //bigger pulley
+      //Rim design 
+      const Dp2 =315; // pitch diameter (mm)
+      const tb = 0.35 * Math.sqrt(Dp2 + 5);
+
+      //Telescopic arms and carriage
+      const b = Math.pow((16.5 * Math.pow(10,5) * 3) / (2 * ShearStrength),1/3)
+      const d=2*b;
+      const di= Math.pow((2 * 5500 * 1150 * 32) / (pi * ShearStrength * 12),1/3)
      
 
       // Update state with stepwise calculations
@@ -94,7 +122,9 @@ function App() {
         torque: {
           step1: torqueStep1,
           step2: torqueStep2,
+          step3:originalTorque,
           result: tauEq
+          
         },
         diameter: {
           step1: diameterStep1,
@@ -114,7 +144,24 @@ function App() {
           step5:NumBelt,
           step6:reductionRatio,
           step7:d0
+        },
+        pulley :{
+          step1:D1,
+          step2: lh,
+          step3:ts,
+          step4:t1,
+          step5:lk,
+          step6:D2,
+          step7:tb,
+          step8:Dp1,
+          step9:Dp2,
+        },
+        arms:{
+          step1:b,
+          step2:d,
+          step3:di
         }
+      
       
       });
     } catch (error) {
@@ -174,84 +221,180 @@ Please provide the following specifications of the car for which you want to des
             <h2>1. Design of Screw</h2>
             <h3>Equivalent Torque:</h3>
             <ul>
-              <li>Torque = <span className="underroot">√(0.25 x weight of the car x eccentricity)<sup>2</sup>+ (2 x weight of the car x r )<sup>2</sup></span></li>
-              <li><b>Step 1 : </b>(0.25 * {(Weightofthecar/2)+600} * {Weightofthecar})<sup>2</sup> = {stepwiseCalculations.torque.step1.toFixed(2)}</li>
-              <li><b>Step 2 : </b>(2 * {Math.pow(Math.pow(0.25*Weightofthecar*(widthofthecar/2+600),2) +Math.pow(2*Weightofthecar*50,2),0.5).toFixed(2)})<sup>2</sup> = {stepwiseCalculations.torque.step2.toFixed(2)}</li>
-              <li><b>Result : </b><span className="underroot">√ (step1 + step2)</span> = {stepwiseCalculations.torque.result.toFixed(2)} N-mm</li>
+              <li>Using maximum shear stress theory</li>
+              <li>Equivalent Torque = <span className="underroot">√(0.25 x Weight Of The Car x Eccentricity)<sup>2</sup>+ (2 x Original Torque )<sup>2</sup></span></li>
+              <li>Eccentricity = Width Of The Car/2 + 600 = {widthofthecar}/2+ 600 = {(Weightofthecar/2)+600}</li>
+              <li>Original Torque = Weight Of The Car x r = {Weightofthecar} x 50 = {stepwiseCalculations.torque.step3} N-mm</li>
+              <li><b>Equivalent Torque = </b><span className='underroot'>√(0.25 * {Weightofthecar} * {(Weightofthecar/2)+600})<sup>2</sup> + (2 x  {stepwiseCalculations.torque.step3})<sup>2</sup></span> </li>
+              <li>Result : Equivalent Torque= {stepwiseCalculations.torque.result.toFixed(2)} N-mm</li>
+              
             </ul>
             <h3>Diameter:</h3>
             <ul>
-              <li>Diameter = (16 x Torque / pi x 78)<sup>1/3</sup></li>
+              <li>Diameter = (16 x Torque / pi x Shear Strength)<sup>1/3</sup></li>
               <li><b>Step 1 : </b> 16 x Torque = {stepwiseCalculations.diameter.step1.toFixed(2)}</li>
               <li><b>Step 2 : </b> pi x {ShearStrength} = {stepwiseCalculations.diameter.step2.toFixed(2)}</li>
-              <li><b>Result : </b>(step 1/step 2)<sup>(1/3)</sup> = {stepwiseCalculations.diameter.result.toFixed(2)} mm</li>
-              <li>{diameter && <p id="result">Final diameter of the screw : {diameter.toFixed(2)} mm</p>}</li>
+              <li><b>Step 3 : </b>(step 1/step 2)<sup>(1/3)</sup> = {stepwiseCalculations.diameter.result.toFixed(2)} mm</li>
+              <li> Result : Final diameter of the screw : {diameter.toFixed(2)} mm</li>
               <li><b>Note:</b> Other specifications of the screw should be taken from PSG design data book.</li>
+              <li></li>
             </ul>
-            <h2>2.Motor Selection</h2>
+            <div className='img-container'><img src={screw} alt="screw" className='screw'/>
+            <p>Figure 1: Screw</p></div>
+            <h2>2. Motor Selection</h2>
             <ul>
-              <li>Motor Power = 4 x Torque x Pi x N / 60 = 4 x {stepwiseCalculations.torque.result.toFixed(2)} x Pi x 60 / 60  = {stepwiseCalculations.Motor.step1.toFixed(2)} kW</li>
-              <li>Final Motor Power ( 85% efficiency) = Motor Power / 0.85 = {stepwiseCalculations.Motor.step2.toFixed(2)} kW</li>
+              <li>Power to be transmitted by the motor - </li>
+              <li>Motor Power (p')= 4 x Torque x Pi x N / 60 = 4 x {stepwiseCalculations.torque.result.toFixed(2)} x Pi x 60 / 60  = {stepwiseCalculations.Motor.step1.toFixed(2)} kW</li>
+              <li>Considering overall efficiency of motor as 85 % </li>
+              <li>Final Motor Power (P) = P' / 0.85 = {stepwiseCalculations.Motor.step2.toFixed(2)} kW</li>
               <li>Synchronous Speed = 120 x f / p = 120 x 50 / 6 =  {stepwiseCalculations.Motor.step3.toFixed(2)} rpm </li>
               <li>Motor Speed = Synchronous Speed x (1- slip factor) = {stepwiseCalculations.Motor.step3.toFixed(2)} x (1 - 0.04) = {stepwiseCalculations.Motor.step4.toFixed(2)} rpm </li>
-              <li><b>Result :  choose a motor which have Motor Power {stepwiseCalculations.Motor.step2.toFixed(2)} kW  & Motor Speed {stepwiseCalculations.Motor.step4.toFixed(2)} rpm</b></li>
+              <li><b>Result : Choose a motor which have Motor Power {stepwiseCalculations.Motor.step2.toFixed(2)} kW  & Motor Speed {stepwiseCalculations.Motor.step4.toFixed(2)} rpm</b></li>
             </ul>
-            <h2>3.Design of Belt</h2>
+            <h2>3. Design of Belt</h2>
             <ul>
-              <li>Reduction Ratio = Motor Speed / Screw rpm =  {stepwiseCalculations.belt.step6.toFixed(2)}</li>
-              <li>Bigger Pulley Diameter (D2) = Reduction Ratio * D1 = {stepwiseCalculations.belt.step6.toFixed(2)}* {stepwiseCalculations.belt.step1.toFixed(2)} = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
+              <li>Reduction Ratio = Motor Speed (N1) / Screw rpm (N2) =  {stepwiseCalculations.belt.step6.toFixed(2)}</li>
+              <li>Minimum diameter recommended for B cross section pulley is 125 mm</li>
+              <li>D2/D1 = N1/N2</li>
+              <li>D2 = D1 x (N1/N2), this gives - </li>
+              <li>D2 = Reduction Ratio * D1 = {stepwiseCalculations.belt.step6.toFixed(2)}* {stepwiseCalculations.belt.step1.toFixed(2)} = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
+              <li>Diameter of the smaller pulley (D1) = 125 mm</li>
+              <li>Diameter of the bigger pulley (D2) = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
+              <li>Now,<br/>Power Transmitted Capacity of a single Belt of (B) cross-section</li>
+              <li>Power Transmitted = [0.79 x S<sup>-0.09</sup> - 50.8/d0 -1.32 x 10<sup>-4</sup> S<sup>2</sup>] x S = {stepwiseCalculations.belt.step4.toFixed(2)} kW</li>
+              <li>where </li>
               <li>Belt Speed (S)= D1 * W1 / 2  = {stepwiseCalculations.belt.step1.toFixed(2)} x 2 x pi x 200 / 6 =  {stepwiseCalculations.belt.step3.toFixed(2)} m/s </li>
-              <li>Power Transmitted = [0.79 x S<sup>-0.09</sup> - 50.8/d0 -1.32 x 10<sup>-4</sup> S<sup>2</sup>] x S = {stepwiseCalculations.belt.step4.toFixed(2)}</li>
               <li>Equivalent pitch (d0) = D1 x F<sub>b</sub> = {stepwiseCalculations.belt.step7.toFixed(2)}</li>
-              <li>Number of belt required = [Motor Power x F<sub>a</sub>/ (Power Transmitted x F<sub>c</sub> x F<sub>d</sub>)] = {stepwiseCalculations.belt.step5.toFixed(2)}</li>
+              <li>Now, Number of belt required (n) = [Motor Power x F<sub>a</sub>/ (Power Transmitted x F<sub>c</sub> x F<sub>d</sub>)] </li>
+              <li> n = {stepwiseCalculations.belt.step5.toFixed(2)}</li>
+              <li>Result: <br/>
+              Smaller Diameter = 125 mm, Power Transmitted = {stepwiseCalculations.belt.step4.toFixed(2)}, Belt Speed (S) = {stepwiseCalculations.belt.step3.toFixed(2)} m/s</li>
+              <li>Bigger Diameter = 125 mm, Number of belts required (n) = {stepwiseCalculations.belt.step5.toFixed(2)}</li>
             </ul>
-          <h2>3.Drive Chain</h2>
-          <p>Since Velocity Ratio = 1 = N<sub>1</sub>/N<sub>2</sub>
-          <br/>From PSG Design Data Book-
-<br/>No. of tooth on smaller sprocket = T<sub>1</sub> = 31
-<br/>No. of tooth on larger sprocket = T<sub>2</sub> = T1 x N<sub>1</sub>/N<sub>2</sub> = 31*1 =31
+            <h2>4. Design of Pulleys</h2>
+            <ul>
+              <li><h3>A. Smaller Pulley Design</h3></li>
+              <li>We are going to design a V grooved pulley, so we have to follow some standard dimensions, (from PSG Design Data book)</li>
+              <li>Pulley Diameter (D1) = {stepwiseCalculations.pulley.step1} mm</li>
+              <li>Pulley Pitch Diameter (Dp1) = {stepwiseCalculations.pulley.step8} mm</li>
+              <li> Pulley Pitch Diameter (Dp2) = {stepwiseCalculations.pulley.step9} mm </li>
+              <li>Length of the Key (lk) = {stepwiseCalculations.pulley.step5} mm </li>
+              <li>1. Rim Design</li>
+              <li> Depth of Rim (ts) = 0.35 * <span className="underroot">√ Dp1 + 5</span> = 0.35 * <span className="underroot">√ {stepwiseCalculations.pulley.step8} + 5</span></li>
+              <li>ts = {stepwiseCalculations.pulley.step3.toFixed(2)} mm </li>
+ 
+              <li>2. Length of the Hub</li>
+              <li> Length of the Hub (lh) = length of key (lk) </li>
+              <li> lh = lk </li>
+              <li> lh = {stepwiseCalculations.pulley.step2.toFixed(2)} </li>
 
-<br/>For chain drive,
-<br/>Designed Power = Rated Power x Service Factor
-<br/>service factor = K<sub>s</sub> = K<sub>1</sub> x K<sub>2</sub> x K<sub>3</sub> x K<sub>4</sub> x K<sub>5</sub> x K<sub>6</sub>
-<br/>Here, from PSG  Data Book
-<br/>K<sub>1</sub> = 1.25 Load factor for variable load with mild shock
-<br/>K<sub>2</sub> = 1.25, Factor for distance regulation, for fixed centre distance.
-<br/>K<sub>3</sub>= 0.8, Factor for centre distance, C
-<br/>K<sub>4</sub>= 1.0, Factor for position of sprocket, for horizontal drive.
-<br/>K<sub>5</sub> = 1.5, Lubrication factor, for periodic lubrication
-<br/>K<sub>6</sub> = 1.0, Rating factor for 8 hr/day.
-<br/>Service Factor K<sub>s</sub> = 1.875
-<br/>Designed Power = 1.875 x 2.25 = 4.218 KW
-<br/>From PSG Design Data Book-
-<br/>For pinion speed of 200 rpm the power transmitted by chain 10B is 2.19KW
-<br/>From PSG Design Data Book- 
-<br/>For chain no. 10B important dimension are:
-<br/>Pitch (p) = 15.875 mm
-<br/>Roller diameter d<sub>1</sub> = 10.16 mm
-<br/>Width b/w inner plates b<sub>1</sub> = 9.65 mm
-<br/>Transverse pitch P<sub>t</sub>= 16.59 mm
-<br/>Breaking load for simplex chain = 22.2 KN
-<br/>Now,
-<br/>Pitch circle diameter of sprocket D<sub>1</sub> = p.cosec(180/T) = 157.13 mm
-<br/>Pitch line velocity (V) = 1.643 m/s
-<br/>Load on chain W = Rated Power /Pitch line velocity = 2.25/1.643 = 1.369 KN
-<br/>Factor of safety f = Breaking load/Load on chain = WB/W = 22200/1369 = 16.2
-<br/>This value is more than given in table which is 7.8
-<br/>The minimum centre distance between sprockets must be 30 to 50 times pitch.
-<br/>Centre distance between sprockets is 2.5m = 2500 mm
-<br/>Length of chain L= K<sub>p</sub> = 15.875 × 346 = 5492mm ~ 5.5 m
-<br/><b>FINAL DIMENSIONS OF CHAIN:</b>
-<br/>Chain No. I.S. 10B single strand
-<br/>Pitch p = 15.875 mm
-<br/>Roller dia D<sub>r</sub> = 10.16 mm
-<br/>Width between inner plates (b<sub>1</sub>) = 9.65 mm
-<br/>Breaking load Q = 22.2 KN
-<br/>No. of teeth on sprockets N =31
-<br/>Pitch circle dia of sprocket D<sub>1</sub>= 157.13 mm
-<br/><b>Length of chain L = 346 Pitch = 5.5 m</b></p>
+              <li>3. Rib Design</li>
+              <li> Thickness of Rib (t1) = original Torque / 344323 </li>
+              <li> t1 = {stepwiseCalculations.torque.step3.toFixed(2)} / 344323 </li>
+              <li> t1 = {stepwiseCalculations.pulley.step4} mm</li>
 
+              <li><h3>B. Bigger Pulley Design</h3></li>
+              <li>1. Rim Design</li>
+    
+              <li> Depth of Rim (tb) = 0.35 * <span className="underroot">√ {stepwiseCalculations.pulley.step9} + 5</span>=  0.35 * <span className="underroot">√ Dp2 + 5</span> </li>
+              <li> tb = {stepwiseCalculations.pulley.step7.toFixed(2)} mm</li>
+            </ul>
+           
+          <h2>5. Design of Chain</h2>
+            <ul>
+              <li>Since Velocity Ratio = 1 = N<sub>1</sub>/N<sub>2</sub></li>
+              <li>From PSG Design Data Book-</li>
+              <li>No. of tooth on smaller sprocket = T<sub>1</sub> = 31</li>
+              <li>No. of tooth on larger sprocket = T<sub>2</sub> = T1 x N<sub>1</sub>/N<sub>2</sub> = 31 x 1 = 31</li>
+              <li>K<sub>1</sub> = 1.25 Load factor for variable load with mild shock</li>
+              <li>K<sub>2</sub> = 1.25, Factor for distance regulation, for fixed centre distance.</li>   
+              <li>K<sub>3</sub>= 0.8, Factor for centre distance, C</li>
+              <li>K<sub>4</sub>= 1.0, Factor for position of sprocket, for horizontal drive.</li>
+              <li>K<sub>5</sub> = 1.5, Lubrication factor, for periodic lubrication</li>
+              <li>K<sub>6</sub> = 1.0, Rating factor for 8 hr/day.</li>
+              <li></li>
+              <li>For chain drive,</li>
+              <li>Designed Power = Rated Power x Service Factor</li>   
+              <li>service factor = K<sub>s</sub> = K<sub>1</sub> x K<sub>2</sub> x K<sub>3</sub> x K<sub>4</sub> x K<sub>5</sub> x K<sub>6</sub></li>
+              <li>Service Factor K<sub>s</sub> = 1.875</li>
+              <li>Designed Power = 1.875 x 2.25 = 4.218 KW</li>
+              <li>From PSG Design Data Book-</li>
+              <li>For pinion speed of 200 rpm the power transmitted by chain 10B is 2.19KW</li>
+              <li>For chain no. 10B important dimension are:</li>
+              <li>Pitch (p) = 15.875 mm</li>
+              <li>Roller diameter d<sub>1</sub> = 10.16 mm</li>
+              <li>Width b/w inner plates b<sub>1</sub> = 9.65 mm</li>
+              <li>Transverse pitch P<sub>t</sub>= 16.59 mm</li>
+              <li>Breaking load for simplex chain = 22.2 KN</li>
+              <li>Now, Pitch circle diameter of sprocket D<sub>1</sub> = p.cosec(180/T) = 157.13 mm</li>
+              <li>Pitch line velocity (V) = 1.643 m/s</li>
+              <li>Load on chain W = Rated Power /Pitch line velocity = 2.25/1.643 = 1.369 KN</li>
+              <li>Factor of safety f = Breaking load/Load on chain = WB/W = 22200/1369 = 16.2</li>
+              <li>This value is more than given in table which is 7.8</li>
+              <li>The minimum centre distance between sprockets must be 30 to 50 times pitch.</li>
+              <li>Centre distance between sprockets is 2.5m = 2500 mm</li>
+              <li>Length of chain L= K<sub>p</sub> = 15.875 × 346 = 5492mm ~ 5.5 m</li>
+              <li>Result : Final dimension of chain are</li>
+              <li>Chain No. I.S. 10B single strand</li>
+              <li>Pitch p = 15.875 mm</li>
+              <li>Roller dia D<sub>r</sub> = 10.16 mm</li>
+              <li>Width between inner plates (b<sub>1</sub>) = 9.65 mm</li>
+              <li>Breaking load Q = 22.2 KN</li>
+              <li>No. of teeth on sprockets N = 31</li>
+              <li>Pitch circle dia of sprocket D<sub>1</sub>= 157.13 mm</li>
+              <li><b>Length of chain L = 346 Pitch = 5.5 m</b></li>
+          </ul>
+   
+          <h2>6. Design of Bush Bearing for Screw Spindle</h2>
+            <ul>
+              <p>Rotating shafts are required to be supported at suitable places. These bushes are provided to support the screw at two ends of column. The material for bush should be POROUS so as to keep lubrication even in vertical position.Inner diameter of bush should be equal to the diameter of the screw. So,</p>
+              <li>Inner Diameter of Bush (Dbi) = {stepwiseCalculations.diameter.result.toFixed(2)} mm</li>
+              <li>Outer Diameter of Bush (Dbo) = Dbi + 30 = {stepwiseCalculations.diameter.result.toFixed(2) + 30} mm</li>
+              <li>Length of Bush (Lb) = Dbi + 30 = {stepwiseCalculations.diameter.result.toFixed(2) + 30} mm</li>
+              <li>Material used = POROUS Bronze</li>
+            </ul>
+          <h2>7. Design of Roller</h2>
+            <ul>
+              <li>Bore (d) = 35 mm </li>
+              <li>Outer Diameter (D) = 72 mm </li>
+              <li>Width (B) = 23 mm</li>
+              <li></li>
+            </ul>
+            <div className='img-container'><img src={rollers} alt="rollers" className='rollers'/>
+            <p>Figure 2: Rollers</p></div>
+            <h2>8. Design of Telescopic Arms and Carriage</h2>
+            <ul>
+              <li>Width of the solid bar = b mm</li>
+              <li>Depth of the solid bar = d mm</li>
+              <li>Let d = 2b</li>
+              <li>b = <sup>3</sup><span className="underroot">√ (16.5 x 10<sup>5</sup> x 3) /  (2 x Shear Strength)</span> </li>
+              <li>b = <sup>3</sup><span className="underroot">√ (16.5 x 10<sup>5</sup> x 3) /  (2 x Shear Strength)</span> </li>
+              <li>b = <sup>3</sup><span className="underroot">√(16.5 x 10<sup>5</sup> x 3) / (2 x {ShearStrength})</span></li>
+              <li>b = {stepwiseCalculations.arms.step1} mm</li>
+              <li>d = {2*stepwiseCalculations.arms.step2} mm</li>
+              <li>Outer Width of the hollow bar B = b + 26 </li>
+              <li>B = {stepwiseCalculations.arms.step1 + 26} mm</li>
+              <li>Outer Depth of the hollow bar D = d + 26 </li>
+              <li>D = {stepwiseCalculations.arms.step2 + 26} mm</li>
+              <li>di = <sup>3</sup><span className="underroot">√ (2 x 5500 x 1150 x 32) /  (pi x 4 x 3 x Shear Strength)</span></li>
+              <li>di = <sup>3</sup><span className="underroot">√ (2 x 5500 x 1150 x 32) /  (pi x 4 x 3 x {ShearStrength})</span></li>
+              <li>di = {stepwiseCalculations.arms.step3} mm</li>
+              <li>Outer Diamter of the eye, B1 = 2di = {stepwiseCalculations.arms.step3 * 2} mm</li>
+              <li>Result: </li>
+              <li>Width of the solid bar, b = {stepwiseCalculations.arms.step1} mm</li>
+              <li>depth of the solid bar, d = {stepwiseCalculations.arms.step2} mm </li>
+              <li>Outer Width of the hollow bar B = {stepwiseCalculations.arms.step1 + 26} mm </li>
+              <li>Outer Depth of the hollow bar D = {stepwiseCalculations.arms.step2 + 26} mm </li>
+              <li>Diameter of the pin, di = {stepwiseCalculations.arms.step3}</li>
+              <li>Outer Diamter of the eye, B1 = {stepwiseCalculations.arms.step3 * 2} mm</li>
 
+           
+            </ul>
+            <div className='img-container'><img src={telescopicArms} alt="TelescopicArms"/>
+            <p>Figure 3: Telescopic Arms</p>
+            <img src={machineLayout} alt="machineLayout"/>
+            <p>Figure 4: Machine</p></div>
+ 
           </div>
         )}
       </div>
