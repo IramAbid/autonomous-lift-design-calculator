@@ -5,7 +5,7 @@ function Header(){
     return (
         <div className='Header'>
             <div className='heading-container'>
-            <h1 id='heading'>AutoLiftPro: Automotive Lift Design Calculator</h1>
+            <h1 id='heading'>Expert System For An Automotive Lift Mechanism</h1>
             </div>
         </div>
     )

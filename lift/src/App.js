@@ -6,7 +6,6 @@ import rollers from './assets/rollers.png';
 import copyright from './assets/copyright.png';
 import './App.css';
 import Header from './components/header/navbar.jsx';
-
 function App() {
   
   const [Weightofthecar, setWeightofthecar] = useState(null);
@@ -54,11 +53,6 @@ function App() {
       
       // Calculate equivalent torque
       const originalTorque = Weightofthecar * 11.5;
-
-      
-
-     
-      
       const torqueStep1 = Math.pow(0.25 * Weightofthecar * eccentricity, 2);
       const torqueStep2 = Math.pow(2 * originalTorque, 2);
       const tauEq = Math.sqrt(torqueStep1 + torqueStep2);
@@ -427,7 +421,7 @@ function App() {
           </div>
         )} 
         <div className='about-container'>
-        <p>This Expert System is made as a part of the final year project under the supervision of <span className='name'> Prof. Ahmed ALi Khan Sir</span> from Mechanical Engineering Department,
+        <p>This Expert System is made as a part of the final year project under the supervision of <span className='name'> Prof. Ahmed Ali Khan Sir</span> from Mechanical Engineering Department,
              Zakir Husain College of Engineering and Technology, AMU by following project members:  </p>
         
              <div className='about'>
