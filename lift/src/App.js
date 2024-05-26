@@ -275,14 +275,14 @@ function App() {
               <li>Minimum diameter recommended for B cross section pulley is 125 mm</li>
               <li>D<sub>2</sub> / D<sub>1</sub> = N<sub>1</sub> / N<sub>2</sub></li>
               <li>D<sub>2</sub> = D<sub>1</sub> x ( N<sub>1</sub> / N<sub>2</sub>), this gives - </li>
-              <li>D<sub>2</sub> = Reduction Ratio * D<sub>1</sub> = {stepwiseCalculations.belt.step6.toFixed(2)}* {stepwiseCalculations.belt.step1.toFixed(2)} = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
+              <li>D<sub>2</sub> = Reduction Ratio x D<sub>1</sub> = {stepwiseCalculations.belt.step6.toFixed(2)} x {stepwiseCalculations.belt.step1.toFixed(2)} = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
               <li>Diameter of the smaller pulley (D<sub>1</sub>) = 125 mm</li>
               <li>Diameter of the bigger pulley (D<sub>2</sub>) = {stepwiseCalculations.belt.step2.toFixed(2)} mm</li>
               <li>Now, Power Transmitted Capacity of a single Belt of (B) cross-section is given by</li>
               <li>Power Transmitted = [0.79 x S<sup>-0.09</sup> - 50.8/d<sub>o</sub> -1.32 x 10<sup>-4</sup> S<sup>2</sup>] x S = {stepwiseCalculations.belt.step4.toFixed(2)} kW</li>
               <li>where </li>
-              <li>Belt Speed (S)= D<sub>1</sub> * W<sub>1</sub> / 2  = {stepwiseCalculations.belt.step1.toFixed(2)} x 2 x pi x 200 / 6 =  {stepwiseCalculations.belt.step3.toFixed(2)} m/s </li>
-              <li>Equivalent pitch (d<sub>o</sub>) = D1 x F<sub>b</sub> = {stepwiseCalculations.belt.step7.toFixed(2)}</li>
+              <li>Belt Speed (S)= D<sub>1</sub> x W<sub>1</sub> / 2  = {stepwiseCalculations.belt.step1.toFixed(2)} x 2 x pi x 200 / 6 =  {stepwiseCalculations.belt.step3.toFixed(2)} m/s </li>
+              <li>Equivalent pitch (d<sub>o</sub>) = D<sub>1</sub> x F<sub>b</sub> = {stepwiseCalculations.belt.step7.toFixed(2)}</li>
               <li>Now, Number of belt required (n) = [Motor Power x F<sub>a</sub>/ (Power Transmitted x F<sub>c</sub> x F<sub>d</sub>)] </li>
               <li> n = {Math.ceil(stepwiseCalculations.belt.step5.toFixed(2))}</li>
               <li><span className='result'>Result: </span></li>
@@ -344,7 +344,7 @@ function App() {
               <li>For chain no. 10B important dimension are:</li>
               <li>Pitch (p) = 15.875 mm</li>
               <li>Roller diameter d<sub>1</sub> = 10.16 mm</li>
-              <li>Width b/w inner plates b<sub>1</sub> = 9.65 mm</li>
+              <li>Width between inner plates b<sub>1</sub> = 9.65 mm</li>
               <li>Transverse pitch P<sub>t</sub>= 16.59 mm</li>
               <li>Breaking load for simplex chain = 22.2 KN</li>
               <li>Now, Pitch circle diameter of sprocket D<sub>1</sub> = p.cosec(180/T) = 157.13 mm</li>
