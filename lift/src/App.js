@@ -192,30 +192,30 @@ function App() {
       <form onSubmit={handleSubmit}>
       
       <label htmlFor="Weightofthecar">Weight of the car (N):</label>
-      <input type="number" id="Weightofthecar" name="Weightofthecar" /><br />
+      <input type="number" id="Weightofthecar" name="Weightofthecar" required/><br />
 
       <label htmlFor="Lengthofthecar">Length of the car (mm):</label>
-      <input type="number" id="Lengthofthecar" name="Lengthofthecar" /><br />
+      <input type="number" id="Lengthofthecar" name="Lengthofthecar" required/><br />
 
       <label htmlFor="widthofthecar">width of the car (mm):</label>
-      <input type="number" id="widthofthecar" name="widthofthecar" /><br />
+      <input type="number" id="widthofthecar" name="widthofthecar" required/><br />
 
       <label htmlFor="Heightofthecar">Height of the car (mm):</label>
-      <input type="number" id="Heightofthecar" name="Heightofthecar" /><br />
+      <input type="number" id="Heightofthecar" name="Heightofthecar" required/><br />
 
       <label htmlFor="WheelBase">Wheel Base (mm):</label>
-      <input type="number" id="WheelBase" name="WheelBase" /><br />
+      <input type="number" id="WheelBase" name="WheelBase" required/><br />
 
       <label htmlFor="GroundClearance">Ground Clearance (mm):</label>
-      <input type="number" id="GroundClearance" name="GroundClearance" /><br />
+      <input type="number" id="GroundClearance" name="GroundClearance" required /><br />
   
       <label htmlFor="TensileStrength">Tensile Strength of material chosen (MPa):</label>
-      <input type="number" id="TensileStrength" name="TensileStrength" /><br />
+      <input type="number" id="TensileStrength" name="TensileStrength" required/><br />
 
       <label htmlFor="ShearStrength">Shear Strength of material chosen (MPa):</label>
-      <input type="number" id="ShearStrength" name="ShearStrength" /><br />
+      <input type="number" id="ShearStrength" name="ShearStrength" required/><br />
       <div id='button'>
-      <input type="submit" value="Submit" id='calculate-button' />
+      <input type="submit" value="Submit" id='calculate-button' required />
       </div>
       
       </form>
